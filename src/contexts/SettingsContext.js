@@ -1,11 +1,11 @@
 // provider === component
-import { createContext, useEffect } from "react";
-import { defaultSettings } from "../config";
-import useLocalStorage from "../hooks/useLocalStorage";
+import { createContext, useEffect } from 'react'
+import { defaultSettings } from '../config'
+import useLocalStorage from '../hooks/useLocalStorage'
 import getColorPresets, {
   defaultPreset,
   colorPresets,
-} from "../utils/getColorPresets";
+} from '../utils/getColorPresets'
 
 const initialState = {
   ...defaultSettings,
@@ -37,67 +37,66 @@ const initialState = {
 
   // Reset
   onResetSetting: () => {},
-};
+}
 
-const SettingsContext = createContext(initialState);
+const SettingsContext = createContext(initialState)
 
 const SettingsProvider = ({ children }) => {
-  const [settings, setSettings] = useLocalStorage("settings", {
+  const [settings, setSettings] = useLocalStorage('settings', {
     themeMode: initialState.themeMode,
     themeLayout: initialState.themeLayout,
     themeStretch: initialState.themeStretch,
     themeContrast: initialState.themeContrast,
     themeDirection: initialState.themeDirection,
     themeColorPresets: initialState.themeColorPresets,
-  });
+  })
 
-  const isArabic = localStorage.getItem("i18nextLng") === "ar";
+  const isArabic = localStorage.getItem('i18nextLng') === 'ar'
 
   useEffect(() => {
     if (isArabic) {
-      onChangeDirectionByLang("ar");
+      onChangeDirectionByLang('ar')
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isArabic]);
+  }, [isArabic])
 
   // Mode
 
   const onToggleMode = () => {
     setSettings({
       ...settings,
-      themeMode: settings.themeMode === "light" ? "dark" : "light",
-    });
-  };
+      themeMode: settings.themeMode === 'light' ? 'dark' : 'light',
+    })
+  }
 
-  const onChangeMode = (event) => {
+  const onChangeMode = event => {
     setSettings({
       ...settings,
       themeMode: event.target.value,
-    });
-  };
+    })
+  }
 
   // Direction
 
   const onToggleDirection = () => {
     setSettings({
       ...settings,
-      themeDirection: settings.themeDirection === "rtl" ? "ltr" : "rtl",
-    });
-  };
+      themeDirection: settings.themeDirection === 'rtl' ? 'ltr' : 'rtl',
+    })
+  }
 
-  const onChangeDirection = (event) => {
+  const onChangeDirection = event => {
     setSettings({
       ...settings,
       themeDirection: event.target.value,
-    });
-  };
+    })
+  }
 
-  const onChangeDirectionByLang = (lang) => {
+  const onChangeDirectionByLang = lang => {
     setSettings({
       ...settings,
-      themeDirection: lang === "ar" ? "rtl" : "ltr",
-    });
-  };
+      themeDirection: lang === 'ar' ? 'rtl' : 'ltr',
+    })
+  }
 
   // Layout
 
@@ -105,41 +104,41 @@ const SettingsProvider = ({ children }) => {
     setSettings({
       ...settings,
       themeLayout:
-        settings.themeLayout === "vertical" ? "horizontal" : "vertical",
-    });
-  };
+        settings.themeLayout === 'vertical' ? 'horizontal' : 'vertical',
+    })
+  }
 
-  const onChangeLayout = (event) => {
+  const onChangeLayout = event => {
     setSettings({
       ...settings,
       themeLayout: event.target.value,
-    });
-  };
+    })
+  }
 
   // Contrast
 
   const onToggleContrast = () => {
     setSettings({
       ...settings,
-      themeContrast: settings.themeContrast === "default" ? "bold" : "default",
-    });
-  };
+      themeContrast: settings.themeContrast === 'default' ? 'bold' : 'default',
+    })
+  }
 
-  const onChangeContrast = (event) => {
+  const onChangeContrast = event => {
     setSettings({
       ...settings,
       themeContrast: event.target.value,
-    });
-  };
+    })
+  }
 
   // Color
 
-  const onChangeColor = (event) => {
+  const onChangeColor = event => {
     setSettings({
       ...settings,
       themeColorPresets: event.target.value,
-    });
-  };
+    })
+  }
 
   // Stretch
 
@@ -147,8 +146,8 @@ const SettingsProvider = ({ children }) => {
     setSettings({
       ...settings,
       themeStretch: !settings.themeStretch,
-    });
-  };
+    })
+  }
 
   // Reset
 
@@ -160,8 +159,8 @@ const SettingsProvider = ({ children }) => {
       themeContrast: initialState.themeContrast,
       themeDirection: initialState.themeDirection,
       themeColorPresets: initialState.themeColorPresets,
-    });
-  };
+    })
+  }
 
   return (
     <SettingsContext.Provider
@@ -189,7 +188,7 @@ const SettingsProvider = ({ children }) => {
         // Color
         onChangeColor,
         setColor: getColorPresets(settings.themeColorPresets),
-        colorOption: colorPresets.map((color) => ({
+        colorOption: colorPresets.map(color => ({
           name: color.name,
           value: color.main,
         })),
@@ -200,9 +199,9 @@ const SettingsProvider = ({ children }) => {
     >
       {children}
     </SettingsContext.Provider>
-  );
-};
+  )
+}
 
-export {SettingsContext};
+export { SettingsContext }
 
-export default SettingsProvider;
+export default SettingsProvider
