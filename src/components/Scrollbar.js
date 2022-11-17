@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
-import SimpleBarReact from 'simplebar-react';
+import PropTypes from 'prop-types'
+import SimpleBarReact from 'simplebar-react'
 // @mui
-import { alpha, styled } from '@mui/material/styles';
-import { Box } from '@mui/material';
+import { alpha, styled } from '@mui/material/styles'
+import { Box } from '@mui/material'
 
 // ----------------------------------------------------------------------
 
@@ -10,7 +10,7 @@ const RootStyle = styled('div')(() => ({
   flexGrow: 1,
   height: '100%',
   overflow: 'scroll',
-}));
+}))
 
 const SimpleBarStyle = styled(SimpleBarReact)(({ theme }) => ({
   // maxHeight: '100%',
@@ -31,29 +31,33 @@ const SimpleBarStyle = styled(SimpleBarReact)(({ theme }) => ({
   '& .simplebar-mask': {
     zIndex: 'inherit',
   },
-  "& .simplebar-placeholder": {
+  '& .simplebar-placeholder': {
     height: '0 !important',
-  }
-}));
+  },
+}))
 
 // ----------------------------------------------------------------------
 
 Scrollbar.propTypes = {
   children: PropTypes.node.isRequired,
   sx: PropTypes.object,
-};
+}
 
 export default function Scrollbar({ children, sx, ...other }) {
-  const userAgent = typeof navigator === 'undefined' ? 'SSR' : navigator.userAgent;
+  const userAgent =
+    typeof navigator === 'undefined' ? 'SSR' : navigator.userAgent
 
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+  const isMobile =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      userAgent
+    )
 
   if (isMobile) {
     return (
       <Box sx={{ overflowX: 'auto', ...sx }} {...other}>
         {children}
       </Box>
-    );
+    )
   }
 
   return (
@@ -62,7 +66,7 @@ export default function Scrollbar({ children, sx, ...other }) {
         {children}
       </SimpleBarStyle>
     </RootStyle>
-  );
+  )
 }
 
-export {SimpleBarStyle};
+export { SimpleBarStyle }

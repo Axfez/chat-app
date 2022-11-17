@@ -22,5 +22,8 @@ module.exports = {
     'react/react-in-jsx-scope': RULES.OFF,
     camelcase: RULES.OFF,
     'react/display-name': RULES.OFF,
+    'spaced-comment': RULES.OFF,
+    'array-callback-return': RULES.OFF,
+    'no-unreachable': RULES.OFF,
   },
 }

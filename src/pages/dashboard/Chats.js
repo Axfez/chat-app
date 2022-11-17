@@ -47,14 +47,14 @@ const ChatElement = ({ id, name, img, msg, time, unread, online }) => {
   const theme = useTheme()
   return (
     <Box
+      p={2}
       sx={{
         width: '100%',
         borderRadius: 1,
         backgroundColor:
           theme.palette.mode === 'light'
-            ? '#fff'
+            ? '#FFF'
             : theme.palette.background.default,
-        p: 2,
       }}
     >
       <Stack direction="row" alignItems="center" justifyContent="space-between">
@@ -140,7 +140,7 @@ const Chats = () => {
             <CircleDashed />
           </IconButton>
         </Stack>
-        <Stack width="100%">
+        <Stack sx={{ width: '100%' }}>
           <Search>
             <SearchIconWrapper>
               <MagnifyingGlass color="#709CE6" />
@@ -158,31 +158,35 @@ const Chats = () => {
           </Stack>
           <Divider />
         </Stack>
-
         <Stack
-          spacing={2}
-          direction="column"
-          sx={{ flexGrow: 1, overflow: 'scroll', height: '100%' }}
+          sx={{
+            direction: 'column',
+            height: '100%',
+            overflow: 'auto',
+            spacing: '2cm',
+          }}
         >
-          <SimpleBarStyle timeout={500} clickOnTrack={false} />
+          <SimpleBarStyle timeout={500} clickOnTrack={false}>
+            <Stack spacing={2}>
+              <Stack spacing={2.4}>
+                <Typography variant="subtitle2" sx={{ color: '#676767' }}>
+                  Pinned
+                </Typography>
+                {ChatList.filter(el => el.pinned).map(el => {
+                  return <ChatElement {...el} key={el.id} />
+                })}
+              </Stack>
 
-          <Stack spacing={2.4}>
-            <Typography variant="subtitle2" sx={{ color: '#676767' }}>
-              Pinned
-            </Typography>
-            {ChatList.filter(el => el.pinned).map(el => {
-              return <ChatElement {...el} key={el.id} />
-            })}
-          </Stack>
-
-          <Stack spacing={2.4}>
-            <Typography variant="subtitle2" sx={{ color: '#676767' }}>
-              All Chats
-            </Typography>
-            {ChatList.filter(el => !el.pinned).map(el => {
-              return <ChatElement {...el} key={el.id} />
-            })}
-          </Stack>
+              <Stack spacing={2.4}>
+                <Typography variant="subtitle2" sx={{ color: '#676767' }}>
+                  All Chats
+                </Typography>
+                {ChatList.filter(el => !el.pinned).map(el => {
+                  return <ChatElement {...el} key={el.id} />
+                })}
+              </Stack>
+            </Stack>
+          </SimpleBarStyle>
         </Stack>
       </Stack>
     </Box>
